@@ -39,8 +39,7 @@ public class SwaggerConfig {
     private ApiInfo getApiInfo() {
 
         return new ApiInfoBuilder()
-            .title("Operation - Swagger API Documentation")
-            .description("Authorize Operations.")
+            .title("Financial Operations - Swagger API Documentation")
             .contact(new Contact("Financial Team", "", "xpto@xpto.com.br"))
             .build();
     }
