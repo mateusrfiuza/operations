@@ -8,7 +8,6 @@ buildscript {
 
 	dependencies {
 		classpath('org.springframework.boot:spring-boot-gradle-plugin:2.2.5.RELEASE')
-		classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0')
 	}
 }
 
@@ -18,8 +17,6 @@ plugins {
 	id 'java'
 	id 'application'
 }
-
-apply plugin: 'com.palantir.docker'
 
 group = ''
 version = '0.0.1-SNAPSHOT'
@@ -46,9 +43,6 @@ dependencies {
 	// Swagger
 	implementation "io.springfox:springfox-swagger2:${springfoxVersion}"
 	implementation "io.springfox:springfox-swagger-ui:${springfoxVersion}"
-
-	//GOOGLE LIBS
-	implementation (group: 'com.google.code.gson', name: 'gson')
 
 	//LOMBOK
 	compileOnly 'org.projectlombok:lombok'
@@ -85,23 +79,6 @@ test {
 
 repositories {
 	mavenCentral()
-}
-
-bootJar {
-	baseName = 'financial-operations'
-	version =  '0.1.0'
-}
-
-task unpack(type: Copy) {
-	dependsOn bootJar
-	from(zipTree(tasks.bootJar.outputs.files.singleFile))
-	into("build/dependency")
-}
-
-docker {
-	name "${project.group}/${bootJar.baseName}"
-	copySpec.from(tasks.unpack.outputs).into("dependency")
-	buildArgs(['DEPENDENCY': "dependency"])
 }
 
 dependencyManagement {
