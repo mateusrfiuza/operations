@@ -1,6 +1,7 @@
 package br.com.financial.operations.infrastructure.database;
 
-import br.com.financial.operations.domain.OperationTypeEnum;
+import br.com.financial.operations.domain.transaction.OperationTypeEnum;
+import br.com.financial.operations.repository.OperationTypeEnumConverter;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
@@ -28,7 +29,7 @@ public class TransactionEntity implements Serializable {
     private AccountEntity accountEntity;
 
     @Column(name = "OPERATION_TYPE_ID", nullable = false)
-    @Enumerated(EnumType.ORDINAL)
+    @Convert(converter = OperationTypeEnumConverter.class)
     private OperationTypeEnum operationType;
 
     @Column(name = "AMOUNT", nullable = false)

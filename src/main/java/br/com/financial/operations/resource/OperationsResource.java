@@ -1,10 +1,10 @@
 package br.com.financial.operations.resource;
 
-import br.com.financial.operations.domain.AccountService;
-import br.com.financial.operations.domain.TransactionService;
+import br.com.financial.operations.domain.account.AccountService;
 import br.com.financial.operations.domain.exception.AccountAlreadyRegisteredException;
 import br.com.financial.operations.domain.exception.AccountNotFoundException;
 import br.com.financial.operations.domain.exception.UnregisteredTransactionAccountException;
+import br.com.financial.operations.domain.transaction.TransactionService;
 import br.com.financial.operations.resource.payload.AccountRequestBody;
 import br.com.financial.operations.resource.payload.AccountResponse;
 import br.com.financial.operations.resource.payload.AccountResponseMapper;
@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +41,7 @@ public class OperationsResource {
 
     private final AccountResponseMapper accountResponseMapper;
 
-    @PostMapping(value = ACCOUNTS_URI, consumes = "application/json", produces = "application/json")
+    @PostMapping(value = ACCOUNTS_URI, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create account")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Created Account"),
@@ -55,7 +56,7 @@ public class OperationsResource {
 
     }
 
-    @GetMapping(value = ACCOUNTS_URI+"/{accountId}", produces = "application/json")
+    @GetMapping(value = ACCOUNTS_URI+"/{accountId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get account")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Account Found"),
@@ -69,7 +70,7 @@ public class OperationsResource {
 
     }
 
-    @PostMapping(value = TRANSACTIONS_URI, produces = "application/json")
+    @PostMapping(value = TRANSACTIONS_URI, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create transaction")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Created transaction"),
@@ -79,7 +80,7 @@ public class OperationsResource {
     })
     @ResponseStatus(HttpStatus.CREATED)
     public void createTransaction(@RequestBody @Valid final TransactionRequestBody request) throws UnregisteredTransactionAccountException {
-        transactionService.create(request.getAccountId(), request.getOperationType(), request.getAmount());
+        transactionService.create(request.toDomain());
     }
 
 }

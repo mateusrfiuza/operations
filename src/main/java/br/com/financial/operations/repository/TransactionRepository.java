@@ -1,5 +1,7 @@
 package br.com.financial.operations.repository;
 
+import br.com.financial.operations.domain.transaction.Transaction;
+import br.com.financial.operations.infrastructure.database.AccountEntity;
 import br.com.financial.operations.infrastructure.database.TransactionDAO;
 import br.com.financial.operations.infrastructure.database.TransactionEntity;
 import br.com.financial.operations.repository.exception.ForeignKeyNotFoundException;
@@ -13,10 +15,12 @@ public class TransactionRepository {
 
     private final TransactionDAO transactionDAO;
 
-    public void create(final TransactionEntity transactionEntity) throws ForeignKeyNotFoundException {
+    public void create(final Transaction transaction) throws ForeignKeyNotFoundException {
+
+        final var entity = new TransactionEntity(new AccountEntity(transaction.getAccountId()), transaction.getOperationTypeEnum(), transaction.getAmount());
 
         try {
-            transactionDAO.saveAndFlush(transactionEntity);
+            transactionDAO.saveAndFlush(entity);
         } catch (DataIntegrityViolationException e){
             throw new ForeignKeyNotFoundException();
         }
