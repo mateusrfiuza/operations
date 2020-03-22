@@ -1,4 +1,4 @@
-package br.com.financial.operations.domain;
+package br.com.financial.operations.domain.account;
 
 import br.com.financial.operations.infrastructure.database.AccountEntity;
 import org.mapstruct.Mapper;

@@ -1,4 +1,4 @@
-package br.com.financial.operations.domain;
+package br.com.financial.operations.domain.account;
 
 import br.com.financial.operations.domain.exception.AccountAlreadyRegisteredException;
 import br.com.financial.operations.domain.exception.AccountNotFoundException;
