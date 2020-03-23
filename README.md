@@ -55,7 +55,8 @@ Run commands on terminal inside project folder:
     - Response: `{"account_id":1, "document_number: "xpto"}`
 3. (POST /transactions) Create transaction
     - Request: `{"account_id":1, "operation_type_id: 1, amount: 10.00}`
-###Types operations    
+    
+### Types operations    
     - 1 - COMPRA A VISTA
     - 2 - COMPRA PARCELADA
     - 3 - SAQUE
