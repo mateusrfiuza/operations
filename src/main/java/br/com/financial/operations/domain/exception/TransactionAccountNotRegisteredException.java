@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.FORBIDDEN)
-public class UnregisteredTransactionAccountException extends Exception {
+public class TransactionAccountNotRegisteredException extends Exception {
 
-    public UnregisteredTransactionAccountException() {
+    public TransactionAccountNotRegisteredException() {
         super("Transaction account not found");
     }
 

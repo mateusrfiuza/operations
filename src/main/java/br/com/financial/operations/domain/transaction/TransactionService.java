@@ -1,6 +1,6 @@
 package br.com.financial.operations.domain.transaction;
 
-import br.com.financial.operations.domain.exception.UnregisteredTransactionAccountException;
+import br.com.financial.operations.domain.exception.TransactionAccountNotRegisteredException;
 import br.com.financial.operations.repository.TransactionRepository;
 import br.com.financial.operations.repository.exception.ForeignKeyNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +14,11 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
 
-    public void create(final Transaction transaction) throws UnregisteredTransactionAccountException {
+    public void create(final Transaction transaction) throws TransactionAccountNotRegisteredException {
         try {
             transactionRepository.create(transaction);
         } catch (ForeignKeyNotFoundException e) {
-            throw new UnregisteredTransactionAccountException();
+            throw new TransactionAccountNotRegisteredException();
         }
     }
 

@@ -3,7 +3,7 @@ package br.com.financial.operations.resource;
 import br.com.financial.operations.domain.account.AccountService;
 import br.com.financial.operations.domain.exception.AccountAlreadyRegisteredException;
 import br.com.financial.operations.domain.exception.AccountNotFoundException;
-import br.com.financial.operations.domain.exception.UnregisteredTransactionAccountException;
+import br.com.financial.operations.domain.exception.TransactionAccountNotRegisteredException;
 import br.com.financial.operations.domain.transaction.TransactionService;
 import br.com.financial.operations.resource.payload.AccountRequestBody;
 import br.com.financial.operations.resource.payload.AccountResponse;
@@ -44,12 +44,13 @@ public class OperationsResource {
     @PostMapping(value = ACCOUNTS_URI, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create account")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Created Account"),
+            @ApiResponse(code = 201, message = "Created Account", response = AccountResponse.class),
             @ApiResponse(code = 400, message = "Invalid input data"),
             @ApiResponse(code = 409, message = "Account Already Registered")
 
     })
-    public ResponseEntity<AccountResponse> createAccount(@RequestBody @Valid final AccountRequestBody request) throws AccountAlreadyRegisteredException {
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity createAccount(@RequestBody @Valid final AccountRequestBody request) throws AccountAlreadyRegisteredException {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(accountResponseMapper.from(accountService.create(request.getDocumentNumber())));
@@ -59,11 +60,11 @@ public class OperationsResource {
     @GetMapping(value = ACCOUNTS_URI+"/{accountId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get account")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Account Found"),
+            @ApiResponse(code = 200, message = "Account Found", response = AccountResponse.class),
             @ApiResponse(code = 400, message = "Invalid input data"),
             @ApiResponse(code = 404, message = "Account Not Found")
     })
-    public ResponseEntity<AccountResponse> getAccount(@PathVariable final Long accountId) throws AccountNotFoundException {
+    public ResponseEntity getAccount(@PathVariable final Long accountId) throws AccountNotFoundException {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(accountResponseMapper.from(accountService.getAccount(accountId)));
@@ -75,11 +76,12 @@ public class OperationsResource {
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Created transaction"),
             @ApiResponse(code = 400, message = "Invalid input data"),
-            @ApiResponse(code = 422, message = "Account Already Registered")
+            @ApiResponse(code = 403, message = "Account not Registered")
 
     })
     @ResponseStatus(HttpStatus.CREATED)
-    public void createTransaction(@RequestBody @Valid final TransactionRequestBody request) throws UnregisteredTransactionAccountException {
+    public void createTransaction(@RequestBody @Valid final TransactionRequestBody request) throws
+            TransactionAccountNotRegisteredException {
         transactionService.create(request.toDomain());
     }
 
