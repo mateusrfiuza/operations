@@ -49,12 +49,12 @@ Run commands on terminal inside project folder:
 #### Sample Request
 
 1. (POST /accounts) Create account 
-    1. Request: `{"document_number":"xpto"`
-    2. Response: `{"account_id":1, "document_number: "xpto"}`
+    - Request: `{"document_number":"xpto"`
+    - Response: `{"account_id":1, "document_number: "xpto"}`
 2. (GET /accounts/:accountId) Get account
-    1. Response: `{"account_id":1, "document_number: "xpto"}`
+    - Response: `{"account_id":1, "document_number: "xpto"}`
 3. (POST /transactions) Create transaction
-    1. Request: `{"account_id":1, "operation_type_id: 1, amount: 10.00}`
+    - Request: `{"account_id":1, "operation_type_id: 1, amount: 10.00}`
 ###Types operations    
     - 1 - COMPRA A VISTA
     - 2 - COMPRA PARCELADA
