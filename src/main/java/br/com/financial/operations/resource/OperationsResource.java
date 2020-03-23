@@ -35,9 +35,9 @@ public class OperationsResource {
 
     public static final String TRANSACTIONS_URI = "/transactions";
 
-    private final TransactionService transactionService;
-
     private final AccountService accountService;
+
+    private final TransactionService transactionService;
 
     private final AccountResponseMapper accountResponseMapper;
 

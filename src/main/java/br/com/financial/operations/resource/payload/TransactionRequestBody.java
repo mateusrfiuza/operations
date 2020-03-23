@@ -3,6 +3,7 @@ package br.com.financial.operations.resource.payload;
 import br.com.financial.operations.domain.transaction.OperationTypeEnum;
 import br.com.financial.operations.domain.transaction.Transaction;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.DecimalMin;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @NoArgsConstructor
+@AllArgsConstructor
 public class TransactionRequestBody implements Serializable {
 
     @JsonProperty("account_id")

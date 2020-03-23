@@ -54,7 +54,7 @@ dependencies {
 	testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapStructVersion}"
 
 	//DATABASE
-	runtimeOnly 'com.h2database:h2'
+	implementation 'com.h2database:h2'
 
 	//TEST
 	testCompileOnly 'org.projectlombok:lombok'
