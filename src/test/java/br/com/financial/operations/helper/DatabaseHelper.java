@@ -15,7 +15,6 @@ public class DatabaseHelper {
     @Autowired
     public TransactionDAO transactionDAO;
 
-
     @Transactional
     public void clearDatabase() {
         transactionDAO.deleteAll();
