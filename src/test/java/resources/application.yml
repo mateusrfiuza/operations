@@ -1,0 +1,4 @@
+### TEST PROFILE ###
+spring:
+  profiles:
+    active: test
